@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="auth-wrapper">
+    <article class="auth-card" style="text-align: center; padding: 40px;">
+        
+        {% if nilai >= 75 %}
+            <h1 style="font-size: 4rem; margin-bottom: 10px;">🎉</h1>
+            <h2 style="color: #4ade80;">Luar Biasa!</h2>
+        {% else %}
+            <h1 style="font-size: 4rem; margin-bottom: 10px;">💪</h1>
+            <h2 style="color: #f87171;">Tetap Semangat!</h2>
+        {% endif %}
+
+        <p style="color: #aaa; margin-top: 10px;">Kamu berhasil menjawab <strong>{{ benar }}</strong> dari <strong>{{ total }}</strong> soal.</p>
+        
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 30px 0;">
+            <p style="margin-bottom: 5px;">Nilai Kamu:</p>
+            <strong style="font-size: 3rem; color: white;">{{ nilai }}</strong>
+        </div>
+
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary btn-block">Kembali ke Dashboard</a>
+    </article>
+</main>
+{% endblock %}

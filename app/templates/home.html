@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-wrapper">
+    
+
+    <section class="hero-split">
+   
+        <div class="hero-text">
+            <div class="badge-new">🚀 E-Learning Masa Kini</div>
+            <h1>Belajar Sejarah <br>Jadi Lebih <span class="text-gradient">Seru</span></h1>
+            <p>Akses materi lengkap, kerjakan tugas, dan pantau nilaimu dalam satu dashboard yang modern dan mudah digunakan.</p>
+            
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{{ url_for('main.login') }}">Mulai Sekarang <span class="arrow">→</span></a>
+           
+                <a class="btn btn-outline" href="#about-section">Pelajari Lebih Lanjut</a>
+            </div>
+            
+            <div class="user-count">
+                <div class="avatars">
+                    <span>👨‍🎓</span><span>👩‍🎓</span><span>🧑‍🏫</span>
+                </div>
+                <p>Bergabung dengan <strong> Siswa</strong> lainnya</p>
+            </div>
+        </div>
+<div class="hero-visual">
+    <div class="visual-circle">
+        <div class="icon-main">🏛</div>
+        
+        <div class="float-item item-1">📚</div>
+        <div class="float-item item-2">📜</div>
+        <div class="float-item item-3">🌏</div>
+    </div>
+    
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+</div>
+
+</div>
+
+    </section>
+
+
+    <section id="about-section" class="about-container">
+        <div class="section-header">
+            <span class="badge-pill">✨ Fitur Unggulan</span>
+            <h2>Kenapa Harus SejarahKu?</h2>
+            <p>Kami membuat belajar sejarah tidak lagi membosankan.</p>
+        </div>
+
+        <div class="features-row">
+  
+            <div class="feature-box">
+                <div class="f-icon">📚</div>
+                <h3>Materi Interaktif</h3>
+                <p>Bukan sekadar teks panjang, tapi materi yang disusun ringkas dan mudah dipahami.</p>
+            </div>
+          
+            <div class="feature-box">
+                <div class="f-icon">🎯</div>
+                <h3>Kuis & Latihan</h3>
+                <p>Uji pemahamanmu setelah belajar dengan kuis seru dan langsung dapat nilai.</p>
+            </div>
+    
+            <div class="feature-box">
+                <div class="f-icon">📈</div>
+                <h3>Tracking Nilai</h3>
+                <p>Pantau progres belajarmu dari waktu ke waktu dalam satu dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

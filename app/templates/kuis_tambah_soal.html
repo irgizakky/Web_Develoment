@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container-materi">
+    <header class="header-section">
+        <div>
+            <h2>📝 Editor Soal: {{ kuis.judul_kuis }}</h2>
+            <p style="color:#aaa;">Total Soal Saat Ini: {{ soal_list|length }}</p>
+        </div>
+        <a href="{{ url_for('materi.detail_materi', id_materi=kuis.id_materi) }}" class="btn btn-outline">✅ Selesai & Kembali</a>
+    </header>
+
+    <div style="display: flex; gap: 30px; align-items: flex-start;">
+        
+
+        <section class="card-materi" style="flex: 1; padding: 30px;">
+            <h3 style="margin-bottom: 20px;">Tambah Soal Baru</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Pertanyaan</label>
+                    <textarea name="pertanyaan" rows="3" class="form-control-dark" required placeholder="Tulis pertanyaan..."></textarea>
+                </div>
+
+                <div class="grid-opsi" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div>
+                        <label>Opsi A</label>
+                        <input type="text" name="opsi_a" required>
+                    </div>
+                    <div>
+                        <label>Opsi B</label>
+                        <input type="text" name="opsi_b" required>
+                    </div>
+                    <div>
+                        <label>Opsi C</label>
+                        <input type="text" name="opsi_c" required>
+                    </div>
+                    <div>
+                        <label>Opsi D</label>
+                        <input type="text" name="opsi_d" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Kunci Jawaban</label>
+                    <select name="jawaban_benar" class="custom-select" required>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Simpan Soal</button>
+            </form>
+        </section>
+
+        <aside style="flex: 1; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; height: 80vh; overflow-y: auto;">
+            <h3 style="color:white; margin-bottom: 15px;">Daftar Soal</h3>
+            {% for soal in soal_list %}
+                <div class="soal-item" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                    <p style="font-weight: bold; color: white;">{{ loop.index }}. {{ soal.pertanyaan }}</p>
+                    <ul style="color: #aaa; padding-left: 20px; font-size: 0.9rem;">
+                        <li {% if soal.jawaban_benar == 'a' %}style="color:#4ade80; font-weight:bold;"{% endif %}>A. {{ soal.opsi_a }}</li>
+                        <li {% if soal.jawaban_benar == 'b' %}style="color:#4ade80; font-weight:bold;"{% endif %}>B. {{ soal.opsi_b }}</li>
+                        <li {% if soal.jawaban_benar == 'c' %}style="color:#4ade80; font-weight:bold;"{% endif %}>C. {{ soal.opsi_c }}</li>
+                        <li {% if soal.jawaban_benar == 'd' %}style="color:#4ade80; font-weight:bold;"{% endif %}>D. {{ soal.opsi_d }}</li>
+                    </ul>
+                </div>
+            {% else %}
+                <p style="color:#aaa; text-align:center;">Belum ada soal.</p>
+            {% endfor %}
+        </aside>
+    </div>
+</main>
+{% endblock %}

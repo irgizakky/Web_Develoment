@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container-materi" aria-labelledby="page-title">
+    
+    <header class="header-section">
+            <div style="display:flex; align-items:center; gap:15px;">
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline" style="border:none; padding:0; font-size:1.5rem;">&larr;</a>
+        <h2 id="page-title">📚 Daftar Materi Pelajaran</h2>
+        
+        {% if role == 'guru' %}
+            <nav aria-label="Aksi Guru">
+                <a href="{{ url_for('materi.tambah_materi') }}" class="btn btn-primary">➕ Tambah Materi Baru</a>
+            </nav>
+        {% endif %}
+    </header>
+
+    <section class="materi-grid" aria-label="Kartu Materi">
+        {% for item in materi_list %}
+        
+
+        <article class="card-materi">
+            <header>
+                <h3>{{ item.judul }}</h3>
+                <p class="guru-name">
+                    <span class="sr-only">Dibuat oleh:</span> 
+                    🧑‍🏫 {{ item.nama_guru }}
+                </p>
+                <time datetime="{{ item.tanggal_upload }}" class="upload-date">
+                    {{ item.tanggal_upload }}
+                </time>
+            </header>
+            
+            
+            <p class="desc">{{ item.deskripsi[:100] }}...</p>
+            
+            <footer>
+                <a href="{{ url_for('materi.detail_materi', id_materi=item.id_materi) }}" class="btn btn-outline" aria-label="Baca materi {{ item.judul }}">
+                    📖 Baca Materi
+                </a>
+            </footer>
+        </article>
+        
+        {% else %}
+       
+            <p class="empty-msg" role="status">Belum ada materi yang diupload.</p>
+        {% endfor %}
+    </section>
+
+</main>
+{% endblock %}
+

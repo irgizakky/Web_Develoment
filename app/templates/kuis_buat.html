@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="auth-wrapper" style="margin-top: 50px;">
+    <article class="auth-card" style="max-width: 600px;">
+        <header class="auth-header">
+            <h1>⚙️ Setting Kuis Baru</h1>
+            <p>Untuk materi: <strong>{{ materi[0] }}</strong></p> 
+        </header>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Judul Kuis</label>
+                <input type="text" name="judul_kuis" placeholder="Contoh: Evaluasi Perang Padri" required>
+            </div>
+
+            <div class="form-group">
+                <label>Durasi Pengerjaan (Menit)</label>
+                <input type="number" name="durasi" value="10" min="1" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Lanjut: Tambah Soal &rarr;</button>
+        </form>
+    </article>
+</main>
+{% endblock %}

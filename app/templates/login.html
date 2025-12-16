@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="auth-wrapper" aria-label="Halaman Login">
+    
+    <article class="auth-card">
+        
+        <header class="auth-header">
+            <h1>Login Akses 👋</h1>
+            <p>Masukan data identitas untuk masuk.</p>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <section aria-label="Notifikasi" role="alert">
+            {% for category, message in messages %}
+              <p class="alert alert-{{ category }}">{{ message }}</p>
+            {% endfor %}
+            </section>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('main.login') }}">
+            
+
+            <p class="form-group">
+                <label for="role">Masuk Sebagai</label>
+                <select id="role" name="role" class="custom-select" required>
+                    <option value="">-- Pilih Role --</option>
+                    <option value="siswa">👨‍🎓 Siswa</option>
+                    <option value="guru">🧑‍🏫 Guru</option>
+                </select>
+            </p>
+
+    
+            <p class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" placeholder="Sesuai data sekolah" required autocomplete="off">
+            </p>
+
+    
+            <p class="form-group">
+                <label for="kelas">Kelas</label>
+                <input type="text" id="kelas" name="kelas" placeholder="Contoh: 12 IPA 1" required autocomplete="off">
+            </p>
+
+        
+            <p class="form-group">
+                <label for="nomor_induk">Nomor Induk (NIS / NIP)</label>
+                <input type="text" id="nomor_induk" name="nomor_induk" placeholder="Masukkan Nomor Induk" required autocomplete="off">
+            </p>
+
+      
+
+            <button type="submit" class="btn btn-primary btn-block">Masuk Dashboard</button>
+
+
+    <footer class="login-footer-nav">
+    <a href="{{ url_for('main.home') }}" class="back-home-link">
+        ← Kembali ke Halaman Utama
+    </a>
+</footer>
+    </article>
+</main>
+{% endblock %}

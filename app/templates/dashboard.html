@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-layout">
+    
+   
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h3>🚀 Panel {{ role|capitalize }}</h3>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item active">🏠 Dashboard</a>
+            
+            {% if role == 'siswa' %}
+                <a href="{{ url_for('materi.list_materi') }}" class="menu-item">📚 Materi Pelajaran</a>
+                <a href="{{ url_for('materi.list_materi') }}" class="menu-item">📝 Kuis & Tugas</a>
+                <a href="{{ url_for('main.data_nilai') }}" class="menu-item">🏆 Nilai Saya</a>
+      
+            {% elif role == 'guru' %}
+                <a href="{{ url_for('materi.list_materi') }}" class="menu-item">➕ Input Materi</a>
+                <a href="{{ url_for('materi.list_materi') }}" class="menu-item">✏️ Buat Kuis</a>
+                <a href="{{ url_for('main.data_nilai') }}" class="menu-item">📊 Data Nilai Siswa</a>
+           {% endif %}
+           
+           <a href="{{ url_for('main.logout') }}" class="menu-item logout">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-content">
+        
+ 
+        <header class="content-header">
+            <div class="welcome-text">
+                <h2>Halo, {{ nama }}! 👋</h2>
+                <p>Selamat datang kembali di SejarahKu.</p>
+            </div>
+            <div class="user-profile">
+                <div class="avatar-circle">{{ nama[0] }}</div>
+            </div>
+        </header>
+
+
+        <section class="stats-grid">
+            {% if role == 'siswa' %}
+                <div class="stat-card blue">
+                    <h3>{{ materi_selesai }}</h3> 
+                    <p>Materi Selesai</p>
+                </div>
+
+                <div class="stat-card purple">
+                    <h3>{{ tugas_pending }}</h3>
+                    <p>Materi Belum Dibaca</p>
+                </div>
+
+                <div class="stat-card green">
+                    <h3>{{ rata_rata_nilai }}</h3>
+                    <p>Nilai Kuis Terakhir</p>
+                </div>
+
+            {% else %}
+
+        
+                <div class="stat-card blue">
+                    <h3>{{ total_materi }}</h3> 
+                    <p>Total Materi</p>
+                </div>
+                <div class="stat-card purple">
+                    <h3>{{ total_siswa }}</h3> 
+                    <p>Total Siswa</p>
+                </div>
+                <div class="stat-card green">
+                    <h3>{{ total_kelas }}</h3> 
+                    <p>Kelas Aktif</p>
+                </div>
+            {% endif %}
+
+        </section>
+
+        <section class="recent-activity">
+            <h3>Aktivitas Terbaru 🔔</h3>
+            
+            <div class="activity-list">
+                {% for item in aktivitas_list %}
+                <div class="activity-item" style="display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    
+                
+                    <div style="background: rgba(79, 70, 229, 0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                        📄
+                    </div>
+
+                    <div>
+                        <p style="margin: 0; font-weight: 500;">
+                            <span style="color: #818cf8;">{{ item.nama_guru }}</span> memposting materi baru: 
+                            <strong>{{ item.judul }}</strong>
+                        </p>
+                        <small style="color: #94a3b8;">{{ item.tanggal_upload }}</small>
+                    </div>
+
+                    {% if role == 'siswa' %}
+                    <div style="margin-left: auto;">
+                        <a href="{{ url_for('materi.list_materi') }}" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Lihat</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% else %}
+                    <div class="empty-state">
+                        <p>Belum ada aktivitas terbaru hari ini.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+
+    </main>
+</div>
+{% endblock %}

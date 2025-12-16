@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container-materi">
+    
+    <header class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2 style="color: white; margin: 0;">📊 Data Nilai Siswa</h2>
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline">Kembali ke Dashboard</a>
+    </header>
+
+    <section class="recent-activity" style="background: rgba(30, 41, 59, 0.6); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; color: white;">
+                <thead>
+                    <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                        <th style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">No</th>
+                        <th style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">Nama Siswa</th>
+                        <th style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">Kelas</th>
+                        <th style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">Mata Pelajaran</th>
+                        <th style="padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data_nilai %}
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 12px 15px;">{{ loop.index }}</td>
+                        <td style="padding: 12px 15px; font-weight: 600;">{{ item.nama_siswa }}</td>
+                        <td style="padding: 12px 15px;">{{ item.kelas }}</td>
+                        <td style="padding: 12px 15px;">{{ item.mata_pelajaran }}</td>
+                        <td style="padding: 12px 15px;">
+    {% if item.nilai >= 75 %}
+        <span style="padding: 4px 8px; border-radius: 4px; font-weight: bold; color: white; background-color: #22c55e;">
+            {{ item.nilai }}
+        </span>
+    {% else %}
+        <span style="padding: 4px 8px; border-radius: 4px; font-weight: bold; color: white; background-color: #ef4444;">
+            {{ item.nilai }}
+        </span>
+    {% endif %}
+</td>
+
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="padding: 30px; text-align: center; color: #94a3b8; font-style: italic;">
+                            Belum ada data nilai yang tersimpan.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

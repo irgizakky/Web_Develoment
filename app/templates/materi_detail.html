@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="detail-container" style="padding: 40px; color: white;">
+    <nav aria-label="Navigasi Kembali">
+        <a href="{{ url_for('materi.list_materi') }}" style="color:#818cf8; text-decoration:none;">&larr; Kembali ke Daftar</a>
+    </nav>
+    
+  
+    <article class="materi-full">
+        <header>
+            <h1 style="margin-top:10px; font-size: 2.5rem;">{{ materi.judul }}</h1>
+            <div class="meta-info" style="color:#aaa; font-size: 0.9rem;">
+                <span>Diposting oleh Guru</span> &bull; 
+                <time datetime="{{ materi.tanggal_upload }}">{{ materi.tanggal_upload }}</time>
+            </div>
+        </header>
+        
+     
+        <section class="materi-content" style="background:rgba(255,255,255,0.05); padding:30px; border-radius:15px; margin: 20px 0;">
+            <p>{{ materi.deskripsi }}</p>
+            
+            {% if materi.link_file %}
+                <aside style="margin-top:20px; border-top:1px solid #ffffff22; padding-top:20px;">
+                    <h3>Sumber Tambahan</h3>
+                    <a href="{{ materi.link_file }}" target="_blank" class="btn btn-primary" rel="noopener noreferrer">
+                        🔗 Buka File / Video Materi
+                    </a>
+                </aside>
+            {% endif %}
+        </section>
+    </article>
+
+
+    <section class="kuis-section" aria-labelledby="kuis-title">
+        {% if kuis %}
+            <div class="alert alert-info" role="alert" style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; padding: 20px; border-radius: 10px;">
+                <h3 id="kuis-title">🧠 Tantangan Kuis Tersedia!</h3>
+                <p>Uji pemahamanmu tentang materi ini.</p>
+         
+                <a href="{{ url_for('materi.kerjakan_kuis', id_kuis=kuis.id_kuis) }}" class="btn btn-primary" style="margin-top:10px; display:inline-block;">Mulai Kuis Sekarang</a>
+
+            </div>
+        {% else %}
+            {% if role == 'guru' %}
+                <div class="alert alert-warning" role="alert" style="background: rgba(234, 179, 8, 0.2); border: 1px solid #eab308; padding: 20px; border-radius: 10px;">
+                    <p>⚠️ Materi ini belum ada kuisnya.</p>
+                    <a href="{{ url_for('materi.buat_kuis', id_materi=materi.id_materi) }}" class="btn btn-outline">Buat Kuis untuk Materi Ini</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </section>
+
+</main>
+{% endblock %}

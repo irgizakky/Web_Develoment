@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container-materi" style="max-width: 800px; margin: 0 auto;">
+    
+    <header class="header-section" style="text-align: center; display: block;">
+        <h2>📝 Ujian: {{ kuis.judul_kuis }}</h2>
+        <p style="color: #aaa;">Jawablah dengan jujur dan teliti.</p>
+    </header>
+
+    <form action="{{ url_for('materi.submit_kuis', id_kuis=kuis.id_kuis) }}" method="POST">
+        
+        {% for soal in soal_list %}
+        <article class="soal-card" style="background: rgba(30,41,59,0.7); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);">
+            
+            <p style="font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 15px;">
+                {{ loop.index }}. {{ soal.pertanyaan }}
+            </p>
+
+            <div class="opsi-group">
+    
+  
+    <label class="radio-card">
+        <input type="radio" name="q_{{ soal.id_soal }}" value="a" required>
+        <span class="radio-text">A. {{ soal.opsi_a }}</span>
+    </label>
+
+   
+    <label class="radio-card">
+        <input type="radio" name="q_{{ soal.id_soal }}" value="b" required>
+        <span class="radio-text">B. {{ soal.opsi_b }}</span>
+    </label>
+
+
+    <label class="radio-card">
+        <input type="radio" name="q_{{ soal.id_soal }}" value="c" required>
+        <span class="radio-text">C. {{ soal.opsi_c }}</span>
+    </label>
+
+    
+    <label class="radio-card">
+        <input type="radio" name="q_{{ soal.id_soal }}" value="d" required>
+        <span class="radio-text">D. {{ soal.opsi_d }}</span>
+    </label>
+
+</div>
+
+
+
+        {% endfor %}
+
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+            <button type="submit" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                🚀 Kirim Jawaban Saya
+            </button>
+        </div>
+
+    </form>
+</main>
+{% endblock %}
